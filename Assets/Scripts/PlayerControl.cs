@@ -12,11 +12,14 @@ public class PlayerControl : MonoBehaviour
     public Text countText;
     public Text winText;
 
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D> ();
         count = 0;
         SetCountText ();
+
+        
     }
 
     void Update()
@@ -25,6 +28,7 @@ public class PlayerControl : MonoBehaviour
         {
             Application.Quit();
         }
+
     }
 
     void FixedUpdate()
@@ -43,15 +47,27 @@ public class PlayerControl : MonoBehaviour
             count = count + 1;
             SetCountText();
         }
+        if (other.gameObject.CompareTag("AntiPickUp"))
+        {
+            other.gameObject.SetActive(false);
+            count = count - 1;
+            SetCountText();
+        }
+
+        if (count == 10)
+        {
+            transform.position = new Vector2(100.0f, 0.0f);
+        }
     }
     void SetCountText()
         {
-            countText.text = "Count: " + count.ToString();
-        if (count >= 8)
+            countText.text = "Bit Score: " + count.ToString();
+        if (count >= 18)
         {
-            winText.text = "You Win!";
+            winText.text = "You Survived! By:Nathan Samuelson";
         }
 
         }
     
+
 }
